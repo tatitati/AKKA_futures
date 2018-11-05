@@ -1,10 +1,8 @@
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
 import akka.util.Timeout
 import akka.pattern.ask
-
 import scala.concurrent.duration._
 import org.scalatest.{Matchers, WordSpec}
-
 import scala.concurrent.Await
 
 class ParentActorSpec extends WordSpec with Matchers {

@@ -12,9 +12,11 @@ class ParentActorSpec extends WordSpec with Matchers {
 	val actorSystem = ActorSystem("actorTestSystem")
 	var parentActor = actorSystem.actorOf(Props[ParentActor], name="myParentActor")
 
-	"Check random name assigned to an actor " should {
-		"when not assigned an specific name" in {
+	"ActorRef returned when createing an actor" should {
+		"has a path and name even if we don't assigned it explicitily" in {
 			val parentActorUnnamed = actorSystem.actorOf(Props[ParentActor])
+
+			parentActorUnnamed shouldBe a [ActorRef]
 			parentActorUnnamed.path.toString should be("akka://actorTestSystem/user/$a")
 			parentActorUnnamed.path.name should be("$a")
 		}

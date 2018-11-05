@@ -18,7 +18,7 @@ class ChildActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"ChildActor ! ping" should {
+	"ChildActor ? ping" should {
 		"Return pong!" in {
 			val responseFuture = childActor ? "ping"
 
@@ -28,7 +28,7 @@ class ChildActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"ChildActor ! <any text different to ping>" should {
+	"ChildActor ? <any text different to ping>" should {
 		"Return an echo of the same message sent" in {
 			val responseFuture = childActor ? "whatever"
 

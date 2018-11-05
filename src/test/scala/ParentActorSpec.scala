@@ -9,8 +9,16 @@ import scala.concurrent.Await
 
 class ParentActorSpec extends WordSpec with Matchers {
 	implicit val timeout = Timeout(2.seconds)
-	val actorSystem = ActorSystem("actorTest")
+	val actorSystem = ActorSystem("actorTestSystem")
 	var parentActor = actorSystem.actorOf(Props[ParentActor], name="myParentActor")
+
+	"Check random name assigned to an actor " should {
+		"when not assigned an specific name" in {
+			val parentActorUnnamed = actorSystem.actorOf(Props[ParentActor])
+			parentActorUnnamed.path.toString should be("akka://actorTestSystem/user/$a")
+			parentActorUnnamed.path.name should be("$a")
+		}
+	}
 
 	"ParentActor ? ping" should {
 		"Return pong!" in {

@@ -22,9 +22,9 @@ class ParentActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"ParentActor ! NameIdentifier(<nameChild>)" should {
+	"ParentActor ! CreateChildActorRequest(<nameChild>)" should {
 		"Create a child actor" in {
-			parentActor ! new NameIdentifier("child1")
+			parentActor ! new CreateChildActorRequest("child1")
 
 			// get reference to the new created child actor
 			val childActorCreated = actorSystem.actorSelection("/user/myParentActor/child1")
@@ -34,7 +34,7 @@ class ParentActorSpec extends WordSpec with Matchers {
 			// assert that child has been created
 			responseChild should be("pong!")
 			responseChild shouldBe a [String]
-			
+
 			childActorCreated shouldBe a [ActorSelection]
 		}
 	}

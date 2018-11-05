@@ -27,4 +27,14 @@ class ChildActorSpec extends WordSpec with Matchers {
 			response should be("pong!")
 		}
 	}
+
+	"ChildActor ! <any text different to ping>" should {
+		"Return an echo of the same message sent" in {
+			val responseFuture = childActor ? "whatever"
+
+			val response = Await.result(responseFuture, timeout.duration)
+
+			response should be("whatever")
+		}
+	}
 }

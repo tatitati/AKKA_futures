@@ -1,4 +1,4 @@
-package HierarchyActor
+package actors.HierarchyActor
 
 import org.scalatest.{Matchers, WordSpec}
 

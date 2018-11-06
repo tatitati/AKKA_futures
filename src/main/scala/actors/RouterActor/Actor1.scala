@@ -1,4 +1,4 @@
-package RouterActor
+package actors.RouterActor
 
 import akka.actor.Actor
 

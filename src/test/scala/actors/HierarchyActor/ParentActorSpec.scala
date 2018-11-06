@@ -1,14 +1,14 @@
-package HierarchyActor
+package actors.HierarchyActor
 
-import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
+import akka.actor.{ActorRef, ActorSelection, ActorSystem, PoisonPill, Props}
 import akka.pattern.ask
 import akka.util.Timeout
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{BeforeAndAfter, Matchers, WordSpec}
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class ParentActorSpec extends WordSpec with Matchers {
+class ParentActorSpec extends WordSpec with Matchers with BeforeAndAfter {
 	implicit val timeout = Timeout(2.seconds)
 	val actorSystem = ActorSystem("actorTestSystem")
 	var parentActor = actorSystem.actorOf(Props[ParentActor], name="myParentActor")
@@ -23,7 +23,7 @@ class ParentActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"HierarchyActor.ParentActor ? ping" should {
+	"actors.HierarchyActor.ParentActor ? ping" should {
 		"Return pong!" in {
 			val responseFuture = parentActor ? "ping"
 
@@ -33,7 +33,7 @@ class ParentActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"HierarchyActor.ParentActor ! HierarchyActor.CreateChildActorRequest(<nameChild>)" should {
+	"actors.HierarchyActor.ParentActor ! actors.HierarchyActor.CreateChildActorRequest.scala(<nameChild>)" should {
 		"Create a child actor" in {
 			parentActor ! new CreateChildActorRequest("child1")
 

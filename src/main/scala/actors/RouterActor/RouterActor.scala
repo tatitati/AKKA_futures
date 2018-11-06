@@ -1,6 +1,6 @@
-package RouterActor
+package actors.RouterActor
 
-import HierarchyActor.ChildActor
+import actors.HierarchyActor.ChildActor
 import akka.actor.{Actor, ActorRef, Props}
 import akka.util.Timeout
 

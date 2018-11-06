@@ -1,9 +1,9 @@
-package HierarchyActor
+package actors.HierarchyActor
 
-import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.actor.{ActorRef, ActorSystem, PoisonPill, Props}
 import akka.pattern.ask
 import akka.util.Timeout
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{BeforeAndAfter, Matchers, WordSpec}
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -19,7 +19,7 @@ class ChildActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"HierarchyActor.ChildActor ? ping" should {
+	"actors.HierarchyActor.ChildActor ? ping" should {
 		"Return pong!" in {
 			val responseFuture = childActor ? "ping"
 
@@ -29,7 +29,7 @@ class ChildActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"HierarchyActor.ChildActor ? <any text different to ping>" should {
+	"actors.HierarchyActor.ChildActor ? <any text different to ping>" should {
 		"Return an echo of the same message sent" in {
 			val responseFuture = childActor ? "whatever"
 

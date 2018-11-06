@@ -1,4 +1,4 @@
-package HierarchyActor
+package actors.HierarchyActor
 
 import akka.actor.Actor
 

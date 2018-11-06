@@ -1,3 +1,5 @@
+package HierarchyActor
+
 import akka.actor.Actor
 
 class ChildActor extends Actor {

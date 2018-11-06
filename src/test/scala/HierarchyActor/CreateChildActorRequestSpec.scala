@@ -1,3 +1,5 @@
+package HierarchyActor
+
 import org.scalatest.{Matchers, WordSpec}
 
 class CreateChildActorRequestSpec extends WordSpec with Matchers {

@@ -1,17 +1,20 @@
+package HierarchyActor
+
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
-import akka.util.Timeout
 import akka.pattern.ask
-import scala.concurrent.duration._
+import akka.util.Timeout
 import org.scalatest.{Matchers, WordSpec}
+
 import scala.concurrent.Await
+import scala.concurrent.duration._
 
 class ParentActorSpec extends WordSpec with Matchers {
 	implicit val timeout = Timeout(2.seconds)
 	val actorSystem = ActorSystem("actorTestSystem")
 	var parentActor = actorSystem.actorOf(Props[ParentActor], name="myParentActor")
 
-	"ActorRef returned when createing an actor" should {
-		"has a path and name even if we don't assigned it explicitily" in {
+	"ActorRef returned when creating an actor" should {
+		"has a path and name even if we don't assigned it a name explicitily" in {
 			val parentActorUnnamed = actorSystem.actorOf(Props[ParentActor])
 
 			parentActorUnnamed shouldBe a [ActorRef]
@@ -20,7 +23,7 @@ class ParentActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"ParentActor ? ping" should {
+	"HierarchyActor.ParentActor ? ping" should {
 		"Return pong!" in {
 			val responseFuture = parentActor ? "ping"
 
@@ -30,7 +33,7 @@ class ParentActorSpec extends WordSpec with Matchers {
 		}
 	}
 
-	"ParentActor ! CreateChildActorRequest(<nameChild>)" should {
+	"HierarchyActor.ParentActor ! HierarchyActor.CreateChildActorRequest(<nameChild>)" should {
 		"Create a child actor" in {
 			parentActor ! new CreateChildActorRequest("child1")
 

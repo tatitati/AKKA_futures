@@ -27,12 +27,6 @@ class Future1Spec extends WordSpec with Matchers {
 				case Success(value) => value should be("NON BLOCKED FUTURE DONE") // otherwise we have to use a blocking Future
 				case Failure(e) => e.printStackTrace
 			}
-
-
-
-
-
 		}
-
 	}
 }

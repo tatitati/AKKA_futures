@@ -4,7 +4,6 @@ import akka.actor.{ActorRef, ActorSelection, ActorSystem, PoisonPill, Props}
 import akka.pattern.ask
 import akka.util.Timeout
 import org.scalatest.{BeforeAndAfter, Matchers, WordSpec}
-
 import scala.concurrent.Await
 import scala.concurrent.duration._
 

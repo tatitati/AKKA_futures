@@ -13,34 +13,33 @@ class ActorASpec extends FunSuite with Matchers {
   val actorSystem = ActorSystem("ChildActorTest")
   var actorA = actorSystem.actorOf(Props[ActorA])
 
-  test("Tell is used when no response is expected, so even if ActorA reply inmediately, no response is returned") {
+  test("TELL is used when no response is expected, so even if ActorA reply inmediately, no response is returned") {
     val response = actorA ! "identifyWithTell"
 
     assert(response.isInstanceOf[Unit], "response is always empty with tell(!), even if the actor reply quick")
   }
 
-  test("Ask return futures when no delay exists in actor response") {
+  test("ASK is used when a response from actorA is needed. ASK returns immedietely a promise") {
     implicit val timeout = Timeout(8.seconds)
     val responseFuture = actorA ? "identifyWithAsk"
 
-    assert(responseFuture.isInstanceOf[Future[Try[Any]]], "response is always a future with  ask(?). is used when a response is expected")
+    assert(responseFuture.isInstanceOf[Future[Try[Any]]])
 
     val responseResolved = Await.result(responseFuture, timeout.duration)
-    assert(responseResolved === "I'm ActorA", "actorA response immediately, so the promise is resolved in less than 1 sec. No timeout")
+    assert(responseResolved === "I'm ActorA", "If we wait enough, the the promise can be resolved and we can get the value")
   }
 
-  test("Ask return futures also when big delays happen") {
+  test("ASK: actorA sleep 5 seconds, but we will wait 3 secs to try to resolve the future, which will produce a timeout") {
 
-    implicit val timeout = Timeout(3.seconds) // actorA sleep 5 seconds, so this should create a timeout
-    val responseFuture = actorA ? "identifyWithAskAndBigDelay" // Doesnt matter the delay, a promise is immedietely returned
+    implicit val timeout = Timeout(3.seconds) //
+    val responseFuture = actorA ? "identifyWithAskAndBigDelay"
 
-    assert(responseFuture.isInstanceOf[Future[Try[Any]]], "with ask, the actorA returns immedietly a promise.")
+    assert(responseFuture.isInstanceOf[Future[Try[Any]]])
 
     val thrown = intercept[TimeoutException] {
-      // a timeout exception is arised because we wait 3 secs, however actorA takes 5 secs
       Await.result(responseFuture, timeout.duration)
     }
 
-    assert(thrown.getMessage() === "Futures timed out after [3 seconds]", "The actorA has a delay of 5 seconds")
+    assert(thrown.getMessage() === "Futures timed out after [3 seconds]")
   }
 }

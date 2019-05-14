@@ -9,6 +9,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 class Actor1Spec extends FunSuite with Matchers {
+
 	val actorSystem = ActorSystem("ChildActorTest")
 	var childActor = actorSystem.actorOf(Props[Actor1])
 	implicit val timeout = Timeout(2.seconds)

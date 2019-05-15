@@ -1,14 +1,33 @@
 package Futures
 
 import org.scalatest.{FunSuite, Matchers, WordSpec}
-
-import scala.concurrent.Future
 import scala.util.{Failure, Random, Success}
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class Future1Spec extends FunSuite with Matchers {
+class FutureA {
+
+	def simulateBlockingHttpRequest(): String = {
+		val responseFuture = Future {
+			Thread.sleep(500) // 0.5 secs
+			"BLOCKED FUTURE DONE"
+		}
+
+		Await.result(responseFuture, 1 second)
+	}
+
+	def simulateNonBlockingHttpRequest(): Future[String] = {
+		Future {
+			Thread.sleep(500) // 0.5 secs
+			"NON BLOCKED FUTURE DONE"
+		}
+	}
+}
+
+class FutureASpec extends FunSuite with Matchers {
 	test("Future1 Can block waiting for the response") {
-		val future1 = new Future1()
+		val future1 = new FutureA()
 		val response = future1.simulateBlockingHttpRequest()
 
 		response shouldBe a[String]
@@ -16,7 +35,7 @@ class Future1Spec extends FunSuite with Matchers {
 	}
 
 	test("We can do a request withoub blocking the future item") {
-		val future1 = new Future1()
+		val future1 = new FutureA()
 
 		val responseFuture = future1.simulateNonBlockingHttpRequest()
 

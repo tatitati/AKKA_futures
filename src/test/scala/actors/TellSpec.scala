@@ -6,11 +6,10 @@ import org.scalatest.FunSuite
 class ActorCA extends Actor with ActorLogging {
   override def receive: Receive = {
     case "ping" => {
-      sender ! "whatever"
+      sender ! "whatever" // this msg will go to deadletter
     }
     case DeadLetter(msg, from, to) => {
-      // because when called with ! this is not gooing to return to sender, we can see here our "whatever" msg
-      println("DEADLETTER: " + msg)
+      println(msg) // => whatever
     }
   }
 }

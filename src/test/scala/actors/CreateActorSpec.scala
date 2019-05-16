@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, ActorSystem, InvalidActorNameException, Props}
+import akka.actor.{Actor, ActorPath, ActorRef, ActorSystem, InvalidActorNameException, Props}
 import org.scalatest.FunSuite
 
 // very simple
@@ -33,6 +33,13 @@ class CreateActorSpec extends FunSuite {
     var actorAA = actorSystem.actorOf(Props[ActorAA])
 
     assert(actorAA.isInstanceOf[ActorRef])
+  }
+
+  test("Actors has a path inside actor system") {
+    val actorSystem = ActorSystem("MyActorSystem")
+    var actorAA = actorSystem.actorOf(Props[ActorAA])
+
+    assert(actorAA.path.isInstanceOf[ActorPath])
     assert(actorAA.path.toString === "akka://MyActorSystem/user/$a")
   }
 

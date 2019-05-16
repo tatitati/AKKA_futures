@@ -19,7 +19,7 @@ class ActorAB(val animal: String) extends Actor {
 
 
 class CreateActorSpec extends FunSuite {
-  test("I can create an actor system") {
+  test("Create an actor system") {
     val actorSystem = ActorSystem("MyActorSystem")
 
     assert(actorSystem.isInstanceOf[ActorSystem])
@@ -27,7 +27,7 @@ class CreateActorSpec extends FunSuite {
     assert(actorSystem.toString === "akka://MyActorSystem")
   }
 
-  test("I can create an actor") {
+  test("Create an actor in an actor system") {
     val actorSystem = ActorSystem("MyActorSystem")
     var actorAA = actorSystem.actorOf(Props[ActorAA])
 
@@ -35,14 +35,14 @@ class CreateActorSpec extends FunSuite {
     assert(actorAA.path.toString === "akka://MyActorSystem/user/$a")
   }
 
-  test("I can create a named actor") {
+  test("Create a named actor") {
     val actorSystem = ActorSystem("MyActorSystem")
     var actorAA = actorSystem.actorOf(Props[ActorAA], "named_actor")
 
     assert(actorAA.path.toString === "akka://MyActorSystem/user/named_actor")
   }
 
-  test("I can create an actor with argument constructor") {
+  test("I can create an actor with arguments constructor") {
     val actorSystem = ActorSystem("MyActorSystem")
     val actorAB = actorSystem.actorOf(Props(classOf[ActorAB], "elephant"), "ponger")
 

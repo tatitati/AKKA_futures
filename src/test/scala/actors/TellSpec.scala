@@ -12,7 +12,7 @@ class ActorCA extends Actor with ActorLogging {
 }
 
 class TellSpec extends FunSuite {
-  
+
   test("Tell/Bang/! never receives a response") {
     val actorSystem = ActorSystem("MyActorSystem")
     var actorCA = actorSystem.actorOf(Props[ActorCA])

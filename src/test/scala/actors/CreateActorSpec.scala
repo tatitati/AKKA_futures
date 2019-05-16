@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, InvalidActorNameException, Props}
 import org.scalatest.FunSuite
 
 // very simple
@@ -43,7 +43,18 @@ class CreateActorSpec extends FunSuite {
     assert(actorAA.path.toString === "akka://MyActorSystem/user/named_actor")
   }
 
-  test("I can create an actor with arguments constructor") {
+  test("Cannot create [multiple] named actor with the same name") {
+    val actorSystem = ActorSystem("MyActorSystem")
+    var actorAA1 = actorSystem.actorOf(Props[ActorAA], "named_actor")
+
+    val thrown = intercept[InvalidActorNameException] {
+      var actorAA2 = actorSystem.actorOf(Props[ActorAA], "named_actor")
+    }
+
+    assert(thrown.getMessage() === "actor name [named_actor] is not unique!")
+  }
+
+  test("Create an actor with arguments constructor") {
     val actorSystem = ActorSystem("MyActorSystem")
     val actorAB = actorSystem.actorOf(Props(classOf[ActorAB], "elephant"), "ponger")
 

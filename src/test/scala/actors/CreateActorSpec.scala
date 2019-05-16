@@ -1,5 +1,6 @@
-package actors.createActor
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
+package actors
+
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import org.scalatest.FunSuite
 
 // very simple

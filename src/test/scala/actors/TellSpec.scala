@@ -31,7 +31,6 @@ class TellSpec extends FunSuite {
     var actorCA = actorSystem.actorOf(Props[ActorCA])
     actorSystem.eventStream.subscribe(actorCA, classOf[DeadLetter])
 
-    val response = actorCA ! "ping"
-
+    actorCA ! "ping"
   }
 }

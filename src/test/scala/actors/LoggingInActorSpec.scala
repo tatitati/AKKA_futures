@@ -13,6 +13,7 @@ class ActorBA extends Actor with ActorLogging {
 }
 
 class LoggingInActorSpec extends FunSuite {
+
   test("Display some [INFO] ...... and some [WARNING] ..... in the standard output") {
     val actorSystem = ActorSystem("MyActorSystem")
     var actorBA = actorSystem.actorOf(Props[ActorBA])

@@ -18,6 +18,7 @@ class ActorDA extends Actor with ActorLogging {
 }
 
 class AskSpec extends FunSuite {
+
   test("Ask return a future") {
     val actorSystem = ActorSystem("MyActorSystem")
     var actorCA = actorSystem.actorOf(Props[ActorDA])
@@ -38,7 +39,6 @@ class AskSpec extends FunSuite {
     assert(
       Await.result(responseFuture, timeout.duration) === "pong"
     )
-
   }
 
   test("The wait of the Future can finish in Timeout exception") {

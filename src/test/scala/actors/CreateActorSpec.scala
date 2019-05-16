@@ -19,6 +19,7 @@ class ActorAB(val animal: String) extends Actor {
 
 
 class CreateActorSpec extends FunSuite {
+
   test("Create an actor system") {
     val actorSystem = ActorSystem("MyActorSystem")
 

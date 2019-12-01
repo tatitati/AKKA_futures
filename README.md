@@ -10,3 +10,6 @@ sbt test
 - Futures
 - Parallel collections
 - Locks (Synchronized)
+
+# But also..
+- Lazy/streams

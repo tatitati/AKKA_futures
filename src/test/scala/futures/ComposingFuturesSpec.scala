@@ -1,7 +1,6 @@
 package futures
 
 import org.scalatest.FunSuite
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}

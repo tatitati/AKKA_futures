@@ -3,17 +3,8 @@ package threading
 import org.scalatest.FunSuite
 
 class WaitNotifySpec extends FunSuite {
-  //
-  //def runInThread(body: => Unit): Thread = {
-  //  val t = new Thread{
-  //    override def run(): Unit = body
-  //  }
-  //
-  //  t.start()
-  //  t
-  //}
 
-  test("wait notify"){
+  test("wait + notify"){
     val lock = new AnyRef
     var msg: String = ""
 

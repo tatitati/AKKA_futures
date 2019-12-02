@@ -6,6 +6,7 @@ sbt test
 
 
 # Concurrent stuff
+
 - Actors
 - Futures
 - Parallel collections

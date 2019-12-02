@@ -34,7 +34,7 @@ class FutureASpec extends FunSuite with Matchers {
 		response should be("BLOCKED FUTURE DONE")
 	}
 
-	test("We can do a request withoub blocking the future item") {
+	test("We can do a request without blocking the future item") {
 		val future1 = new FutureA()
 
 		val responseFuture = future1.simulateNonBlockingHttpRequest()

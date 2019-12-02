@@ -28,7 +28,8 @@ class SimpleThreadSpec extends FunSuite {
 
 //  OUTPUT:
 //  =======
-//  this is my FIRST thread
-//  done
-//  this is my SECOND thread
-//  done
+// this is my FIRST thread :: Thread id: 160
+// done
+// this is my SECOND thread :: Thread id: 154
+// done
+

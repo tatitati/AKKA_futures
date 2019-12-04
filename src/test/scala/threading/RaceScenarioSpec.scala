@@ -24,7 +24,5 @@ class RaceScenarioSpec extends FunSuite {
 
     // OUTPUT:
     // 115789
-    // 15885
-    // 13383
   }
 }

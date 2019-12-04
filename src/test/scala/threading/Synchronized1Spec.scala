@@ -25,7 +25,5 @@ class Synchronized1Spec extends FunSuite {
 
     // OUTPUT:
     // 400000
-    // 400000
-    // 400000
   }
 }

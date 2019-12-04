@@ -5,7 +5,7 @@ import org.scalatest.FunSuite
 class SynchronizedSpec extends FunSuite {
   test("Dead race scenario") {
     var num = 0
-    def increment(): Int = {
+    def workerIncrement(): Int = {
       for (_ <- 1 to 100000) {
         num = num + 1
       }
@@ -13,24 +13,21 @@ class SynchronizedSpec extends FunSuite {
     }
 
     val t1 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t2 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t3 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t4 = new Thread{
-      override def run(): Unit = {increment()}
-    }
-    val t5 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
 
-    val threads = List(t1, t2, t3, t4, t5)
-    threads.map(_.start())
-    threads.map(_.join())
+    val threadsPool = List(t1, t2, t3, t4)
+    threadsPool.map(_.start())
+    threadsPool.map(_.join())
 
     println(num)
 
@@ -42,7 +39,7 @@ class SynchronizedSpec extends FunSuite {
 
   test("Synchronization with Lock scenario") {
     var num = 0
-    def increment(): Int = {
+    def workerIncrement(): Int = {
       this.synchronized{ // we changed only this line
         for (_ <- 1 to 100000) {
           num = num + 1
@@ -52,24 +49,21 @@ class SynchronizedSpec extends FunSuite {
     }
 
     val t1 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t2 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t3 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
     val t4 = new Thread{
-      override def run(): Unit = {increment()}
-    }
-    val t5 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = workerIncrement()
     }
 
-    val threads = List(t1, t2, t3, t4, t5)
-    threads.map(_.start())
-    threads.map(_.join())
+    val threadsPool = List(t1, t2, t3, t4)
+    threadsPool.map(_.start())
+    threadsPool.map(_.join())
 
     println(num)
 
@@ -84,7 +78,7 @@ class SynchronizedSpec extends FunSuite {
     def increment(): Int = {
       this.synchronized{ // we changed only this line
         println("this Thread id before waiting: " + Thread.currentThread.getId)
-        Thread.sleep(4000)
+        Thread.sleep(407700)
         println("this Thread id after waiting: " + Thread.currentThread.getId)
         for (_ <- 1 to 100000) {
           num = num + 1
@@ -94,22 +88,19 @@ class SynchronizedSpec extends FunSuite {
     }
 
     val t1 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = increment()
     }
     val t2 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = increment()
     }
     val t3 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = increment()
     }
     val t4 = new Thread{
-      override def run(): Unit = {increment()}
-    }
-    val t5 = new Thread{
-      override def run(): Unit = {increment()}
+      override def run(): Unit = increment()
     }
 
-    val threads = List(t1, t2, t3, t4, t5)
+    val threads = List(t1, t2, t3, t4)
     threads.map(_.start())
     threads.map(_.join())
 

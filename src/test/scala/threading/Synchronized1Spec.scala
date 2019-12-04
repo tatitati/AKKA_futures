@@ -6,11 +6,9 @@ class Synchronized1Spec extends FunSuite {
 
   test("Synchronization with Lock scenario") {
     var num = 0
-    def workerIncrement(): Unit = {
-      this.synchronized{ // we changed only this line
-        for (_ <- 1 to 100000) {
-          num = num + 1
-        }
+    def workerIncrement(): Unit = this.synchronized {
+      for (_ <- 1 to 100000) {
+        num = num + 1
       }
     }
 

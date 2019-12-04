@@ -11,14 +11,14 @@ class WaitNotifySpec extends FunSuite {
     val t1 = new Thread {
       override def run(): Unit = {
         lock.synchronized{
-          for(_ <- 1 to 9){
+          for(_ <- 1 to 3){
             msg = msg + "a"
             println(msg)
           }
           println("wait")
           lock.wait()
           println("I was notified!")
-          for(_ <- 1 to 9){
+          for(_ <- 1 to 3){
             msg = msg + "b"
             println(msg)
           }
@@ -29,7 +29,7 @@ class WaitNotifySpec extends FunSuite {
     t1.start()
     Thread.sleep(2000)
     lock.synchronized {
-      for(_ <- 1 to 9) {
+      for(_ <- 1 to 3) {
         msg = msg + "c"
         println(msg)
       }
@@ -37,40 +37,20 @@ class WaitNotifySpec extends FunSuite {
     }
 
     t1.join()
-    println(msg)
 
     // OUTPUT
     //
     // a
     // aa
     // aaa
-    // aaaa
-    // aaaaa
-    // aaaaaa
-    // aaaaaaa
-    // aaaaaaaa
-    // aaaaaaaaa
     // wait
-    // aaaaaaaaac
-    // aaaaaaaaacc
-    // aaaaaaaaaccc
-    // aaaaaaaaacccc
-    // aaaaaaaaaccccc
-    // aaaaaaaaacccccc
-    // aaaaaaaaaccccccc
-    // aaaaaaaaacccccccc
-    // aaaaaaaaaccccccccc
+    // aaac
+    // aaacc
+    // aaaccc
     // I was notified!
-    // aaaaaaaaacccccccccb
-    // aaaaaaaaacccccccccbb
-    // aaaaaaaaacccccccccbbb
-    // aaaaaaaaacccccccccbbbb
-    // aaaaaaaaacccccccccbbbbb
-    // aaaaaaaaacccccccccbbbbbb
-    // aaaaaaaaacccccccccbbbbbbb
-    // aaaaaaaaacccccccccbbbbbbbb
-    // aaaaaaaaacccccccccbbbbbbbbb
-    // aaaaaaaaacccccccccbbbbbbbbb
+    // aaacccb
+    // aaacccbb
+    // aaacccbbb
   }
 
   test("wait + notify: this can be used to rely in another thread to do something when the item is ready"){

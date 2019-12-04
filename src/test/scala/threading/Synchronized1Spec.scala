@@ -12,20 +12,12 @@ class Synchronized1Spec extends FunSuite {
       }
     }
 
-    val t1 = new Thread{
-      override def run(): Unit = workerIncrement()
-    }
-    val t2 = new Thread{
-      override def run(): Unit = workerIncrement()
-    }
-    val t3 = new Thread{
-      override def run(): Unit = workerIncrement()
-    }
-    val t4 = new Thread{
-      override def run(): Unit = workerIncrement()
+    val threadsPool = List.tabulate(4){ _ =>
+      new Thread{
+        override def run(): Unit = workerIncrement()
+      }
     }
 
-    val threadsPool = List(t1, t2, t3, t4)
     threadsPool.map(_.start())
     threadsPool.map(_.join())
 

@@ -5,11 +5,10 @@ import org.scalatest.FunSuite
 class SynchronizedSpec extends FunSuite {
   test("I create a RACE scenario") {
     var num = 0
-    def workerIncrement(): Int = {
+    def workerIncrement(): Unit = {
       for (_ <- 1 to 100000) {
         num = num + 1
       }
-      num
     }
 
     val t1 = new Thread{
@@ -39,12 +38,11 @@ class SynchronizedSpec extends FunSuite {
 
   test("Synchronization with Lock scenario") {
     var num = 0
-    def workerIncrement(): Int = {
+    def workerIncrement(): Unit = {
       this.synchronized{ // we changed only this line
         for (_ <- 1 to 100000) {
           num = num + 1
         }
-        num
       }
     }
 
@@ -68,9 +66,9 @@ class SynchronizedSpec extends FunSuite {
     println(num)
 
     // OUTPUT:
-    // 500000
-    // 500000
-    // 500000
+    // 400000
+    // 400000
+    // 400000
   }
 
   test("A Thread.sleep inside of a synchronized doesnt produce a change to another thread becauase it owns the lock still") {
@@ -117,6 +115,6 @@ class SynchronizedSpec extends FunSuite {
     // this Thread id after waiting: 157
     // this Thread id before waiting: 156
     // this Thread id after waiting: 156
-    // 500000
+    // 400000
   }
 }

@@ -2,7 +2,7 @@ package threading
 
 import org.scalatest.FunSuite
 
-class RaceScenario2Spec extends FunSuite {
+class Synchronized2Spec extends FunSuite {
   test("A Thread.sleep inside of a synchronized doesnt produce a change to another thread becauase it owns the lock still") {
     var num = 0
     def workerIncrement(): Int = {

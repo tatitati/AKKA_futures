@@ -2,7 +2,7 @@ package threading
 
 import org.scalatest.FunSuite
 
-class RaceScenario1Spec extends FunSuite {
+class Synchronized1Spec extends FunSuite {
 
   test("Synchronization with Lock scenario") {
     var num = 0

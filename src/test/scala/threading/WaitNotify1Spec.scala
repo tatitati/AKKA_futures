@@ -10,21 +10,22 @@ class WaitNotify1Spec extends FunSuite {
 
     val t1 = new Thread {
       override def run(): Unit = lock.synchronized{
-        for(_ <- 1 to 3){
-          msg = msg + "a"
-          println(msg)
+        for(x <- 1 to 3){
+          msg = msg + x
         }
-        println("wait")
+        println("Thread Id: " + Thread.currentThread.getId +" waiting")
         lock.wait()
-        println("I was notified!")
-        for(_ <- 1 to 3){
-          msg = msg + "b"
+        println("Thread Id: " + Thread.currentThread.getId +" notified")
+
+        for(x <- 4 to 6){
+          msg = msg + x
           println(msg)
         }
       }
     }
 
     t1.start()
+
     Thread.sleep(2000)
     lock.synchronized {
       for(_ <- 1 to 3) {
@@ -35,20 +36,6 @@ class WaitNotify1Spec extends FunSuite {
     }
 
     t1.join()
-
-    // OUTPUT
-    //
-    // a
-    // aa
-    // aaa
-    // wait
-    // aaac
-    // aaacc
-    // aaaccc
-    // I was notified!
-    // aaacccb
-    // aaacccbb
-    // aaacccbbb
   }
 }
 

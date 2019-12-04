@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class WaitNotify2Spec extends FunSuite {
 
-  test("wait + notify: this can be used to rely in another thread to do something when the item is ready"){
+  test("Thread guard:: wait + notify: this can be used to rely in another thread to do something when the item is ready"){
     val lock = new AnyRef
     var msg: String = ""
 

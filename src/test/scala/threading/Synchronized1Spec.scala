@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class Synchronized1Spec extends FunSuite {
 
-  test("writes to *num in a synchronized way to avoid race scenario") { 
+  test("writes to *num in a synchronized way to avoid race scenario") {
     var num = 0
     def workerIncrement(): Unit = this.synchronized {
       for (_ <- 1 to 100000) {

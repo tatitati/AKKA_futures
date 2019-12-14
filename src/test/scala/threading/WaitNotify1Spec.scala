@@ -6,33 +6,38 @@ class WaitNotify1Spec extends FunSuite {
 
   test("wait + notify: this can be used to introduce data every X items"){
     val lock = new AnyRef
-    var msg: String = ""
+    var sharedMsg: String = ""
 
     val t1 = new Thread (() => {
       lock.synchronized{
-        for(x <- 1 to 3){
-          msg = msg + x
+        for(_ <- 1 to 3){
+          sharedMsg = sharedMsg + "1"
+          println("[t1] " + sharedMsg)
         }
-        println("Thread Id: " + Thread.currentThread.getId +" waiting")
+        println("[t1] waiting..")
         lock.wait()
-        println("Thread Id: " + Thread.currentThread.getId +" notified")
+        println("[t1] notified")
 
-        for(x <- 4 to 6){
-          msg = msg + x
-          println(msg)
+        for(_ <- 4 to 6){
+          sharedMsg = sharedMsg + "1"
+          println("[t1] " + sharedMsg)
         }
       }
     })
 
-    lock.synchronized {
-      for(_ <- 1 to 3) {
-        msg = msg + "c"
-        println(msg)
+    val t2 = new Thread(() => {
+      lock.synchronized {
+        for(_ <- 1 to 3) {
+          sharedMsg = sharedMsg + "2"
+          println("\t[t2] " + sharedMsg)
+        }
+        lock.notify()
       }
-      lock.notify()
-    }
+    })
 
-    t1.start();t1.join()
+
+    t1.start(); t2.start()
+    t1.join(); t2.join()
   }
 }
 

@@ -51,10 +51,8 @@ class ProducerConsumerBufferSpec extends FunSuite {
       }
     })
 
-    consumer.start()
-    producer.start()
-    consumer.join()
-    producer.join()
+    consumer.start();consumer.join()
+    producer.start();producer.join()
   }
 
   test("run") {

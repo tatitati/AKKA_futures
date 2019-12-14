@@ -8,21 +8,22 @@ class WaitNotify1Spec extends FunSuite {
     val lock = new AnyRef
     var msg: String = ""
 
-    val t1 = new Thread {
-      override def run(): Unit = lock.synchronized{
-        for(x <- 1 to 3){
-          msg = msg + x
-        }
-        println("Thread Id: " + Thread.currentThread.getId +" waiting")
-        lock.wait()
-        println("Thread Id: " + Thread.currentThread.getId +" notified")
+    val t1 = new Thread (() => {
+        lock.synchronized{
+            for(x <- 1 to 3){
+              msg = msg + x
+            }
+            println("Thread Id: " + Thread.currentThread.getId +" waiting")
+            lock.wait()
+            println("Thread Id: " + Thread.currentThread.getId +" notified")
 
-        for(x <- 4 to 6){
-          msg = msg + x
-          println(msg)
+            for(x <- 4 to 6){
+              msg = msg + x
+              println(msg)
+            }
+          }
         }
-      }
-    }
+    )
 
     t1.start()
 

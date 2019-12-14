@@ -33,8 +33,8 @@ class ProducerConsumerBussyWaitingSpec extends FunSuite {
       println("[producer] I have produced after long work the value: 42")
     })
 
-    consumer.start();consumer.join()
-    producer.start();producer.join()
+    consumer.start();producer.start()
+    consumer.join();producer.join()
   }
 
   test("run"){

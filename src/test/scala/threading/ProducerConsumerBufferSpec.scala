@@ -12,8 +12,6 @@ class ProducerConsumerBufferSpec extends FunSuite {
     val capacity = 3
 
     val consumer = new Thread(() => {
-      val random = new Random()
-
       while(true) {
         buffer.synchronized{
           if(buffer.isEmpty){
@@ -24,13 +22,10 @@ class ProducerConsumerBufferSpec extends FunSuite {
           println("\t[consumer] consumed " + buffer.dequeue())
           buffer.notify()
         }
-
-        Thread.sleep(random.nextInt(500))
       }
     })
 
     val producer = new Thread(() => {
-      val random = new Random()
       var i = 0
 
       while(true) {
@@ -40,27 +35,22 @@ class ProducerConsumerBufferSpec extends FunSuite {
             buffer.wait()
           }
 
-          println("[producer] producing" + i)
-          buffer.enqueue(i)
+
+          buffer.enqueue(i); println("[producer] produced" + i)
           buffer.notify()
 
           i += 1
         }
-
-        Thread.sleep(random.nextInt(500))
       }
     })
 
-    consumer.start();consumer.join()
-    producer.start();producer.join()
+    consumer.start();producer.start()
+    consumer.join();producer.join()
   }
 
   test("run") {
     producerConsumer()
 
-    // OUTPUT
-    // ======
-    //
     //[producer] buffer is full, waiting....
     //  [consumer] consumed 149
     //[producer] producing152

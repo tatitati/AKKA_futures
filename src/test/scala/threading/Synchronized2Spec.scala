@@ -12,9 +12,9 @@ class Synchronized2Spec extends FunSuite {
     }
 
     val threadPool = List.tabulate(4){ _ =>
-      new Thread{
-        override def run(): Unit = workerIncrement()
-      }
+      new Thread(() => {
+        workerIncrement()
+      })
     }
 
     threadPool.map(_.start())

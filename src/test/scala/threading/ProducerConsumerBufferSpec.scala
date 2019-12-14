@@ -1,9 +1,7 @@
 package threading
 
 import org.scalatest.FunSuite
-
 import scala.collection.mutable
-import scala.util.Random
 
 class ProducerConsumerBufferSpec extends FunSuite {
 

@@ -32,7 +32,7 @@ class ProducerConsumerNotifyingBufferSpec extends FunSuite {
           }
 
 
-          buffer.enqueue(i); println("[producer] produced" + i)
+          buffer.enqueue(i); println("[producer] produced " + i)
           buffer.notify()
 
           i += 1
@@ -47,15 +47,17 @@ class ProducerConsumerNotifyingBufferSpec extends FunSuite {
   test("run") {
     producerConsumer()
 
-    //[producer] buffer is full, waiting....
-    //  [consumer] consumed 149
-    //[producer] producing152
-    //  [consumer] consumed 150
-    //[producer] producing153
-    //  [consumer] consumed 151
-    //[producer] producing154
-    //  [consumer] consumed 152
-    //[producer] producing155
-    //  [consumer] consumed 153
+    // [producer] produced3
+    // [producer] produced4
+    // [producer] produced5
+    // [producer] buffer is full, waiting....
+    //   [consumer] consumed 3
+    //   [consumer] consumed 4
+    //   [consumer] consumed 5
+    //   [consumer] buffer empty, waiting...
+    // [producer] produced6
+    // [producer] produced7
+    // [producer] produced8
+
   }
 }

@@ -13,8 +13,7 @@ class ProducerConsumerBufferSpec extends FunSuite {
       while(true) {
         buffer.synchronized{
           if(buffer.isEmpty){
-            println("\t[consumer] buffer empty, waiting...")
-            buffer.wait()
+            println("\t[consumer] buffer empty, waiting...");buffer.wait()
           }
 
           println("\t[consumer] consumed " + buffer.dequeue())
@@ -29,8 +28,7 @@ class ProducerConsumerBufferSpec extends FunSuite {
       while(true) {
         buffer.synchronized {
           if(buffer.size == capacity) {
-            println("[producer] buffer is full, waiting....")
-            buffer.wait()
+            println("[producer] buffer is full, waiting....");buffer.wait()
           }
 
 
@@ -59,6 +57,5 @@ class ProducerConsumerBufferSpec extends FunSuite {
     //  [consumer] consumed 152
     //[producer] producing155
     //  [consumer] consumed 153
-
   }
 }

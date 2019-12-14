@@ -10,31 +10,31 @@ class WaitNotify3Spec extends FunSuite {
     val lock = new AnyRef
     var existNewItem = false;
 
-    val consumer = new Thread{
-        override def run()= while(true) {
-          lock.synchronized{
-            println("CONSUMER LOCK")
-            while (!existNewItem) {
-              println("waiting...")
-              lock.wait
-            }
-            println("\tNew item: " + queue.last)
-            existNewItem = false
-          }
-        }
-    }
-
-    val producer = new Thread{
-      override def run() = while(true){
+    val consumer = new Thread(() => {
+      while(true) {
         lock.synchronized{
-          println("PRODUCER LOCK")
+          println("[consumer] LOCK")
+          while (!existNewItem) {
+            println("[consumer] waiting...")
+            lock.wait
+          }
+          println("\t[consumer] New item: " + queue.last)
+          existNewItem = false
+        }
+      }
+    })
+
+    val producer = new Thread(() => {
+      while(true){
+        lock.synchronized{
+          println("[producer] LOCK")
           queue += "whatever1"
           existNewItem = true
           Thread.sleep(5000)
           lock.notify()
         }
       }
-    }
+    })
 
     val threadPool = List(producer, consumer)
     threadPool.map(_.start())

@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class ProducerConsumerNotifyingSlotSpec extends FunSuite {
 
-  class Container {
+  class Slot {
     private var value: Int = 0
 
     def isEmpty: Boolean = value == 0
@@ -17,23 +17,23 @@ class ProducerConsumerNotifyingSlotSpec extends FunSuite {
   }
 
   def smartProducerConsumer() = {
-    val container = new Container()
+    val slot = new Slot()
 
     val consumer = new Thread(() => {
-      container.synchronized{
-        println("\t[consumer] waiting..."); container.wait()
+      slot.synchronized{
+        println("\t[consumer] waiting..."); slot.wait()
       }
 
-      println("\t[consumer] I consumed " + container.get)
+      println("\t[consumer] I consumed " + slot.get)
     })
 
 
     val producer = new Thread(() => {
       println("[producer] working...")
 
-      container.synchronized {
-        container.set(42); println("[producer] I produced 42")
-        container.notify()
+      slot.synchronized {
+        slot.set(42); println("[producer] I produced 42")
+        slot.notify()
       }
     })
 

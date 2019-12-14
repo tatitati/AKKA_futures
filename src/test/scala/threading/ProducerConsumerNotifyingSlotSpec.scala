@@ -2,7 +2,7 @@ package threading
 
 import org.scalatest.FunSuite
 
-class ProducerConsumerNotifyingSpec extends FunSuite {
+class ProducerConsumerNotifyingSlotSpec extends FunSuite {
 
   class Container {
     private var value: Int = 0
@@ -21,7 +21,7 @@ class ProducerConsumerNotifyingSpec extends FunSuite {
 
     val consumer = new Thread(() => {
       container.synchronized{
-        container.wait()
+        println("\t[consumer] waiting..."); container.wait()
       }
 
       println("\t[consumer] I have consumed " + container.get)
@@ -30,12 +30,9 @@ class ProducerConsumerNotifyingSpec extends FunSuite {
 
     val producer = new Thread(() => {
       println("[producer] working...")
-      Thread.sleep(2000)
-      val value = 42
 
       container.synchronized {
-        println("[producer] I'm producing " + value)
-        container.set(value)
+        println("[producer] I'm producing 42"); container.set(42)
         container.notify()
       }
     })

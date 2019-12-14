@@ -2,7 +2,7 @@ package threading
 
 import org.scalatest.FunSuite
 
-class ProducerConsumerBussyWaitingSpec extends FunSuite {
+class ProducerConsumerBussyWaitingSlotSpec extends FunSuite {
 
   class Container {
     private var value: Int = 0

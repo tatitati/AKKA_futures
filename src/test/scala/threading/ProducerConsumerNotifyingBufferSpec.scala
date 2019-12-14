@@ -3,7 +3,7 @@ package threading
 import org.scalatest.FunSuite
 import scala.collection.mutable
 
-class ProducerConsumerBufferSpec extends FunSuite {
+class ProducerConsumerNotifyingBufferSpec extends FunSuite {
 
   def producerConsumer() = {
     val buffer: mutable.Queue[Int] = new mutable.Queue[Int]

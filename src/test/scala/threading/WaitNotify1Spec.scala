@@ -24,9 +24,6 @@ class WaitNotify1Spec extends FunSuite {
       }
     })
 
-    t1.start()
-
-    Thread.sleep(2000)
     lock.synchronized {
       for(_ <- 1 to 3) {
         msg = msg + "c"
@@ -35,7 +32,7 @@ class WaitNotify1Spec extends FunSuite {
       lock.notify()
     }
 
-    t1.join()
+    t1.start();t1.join()
   }
 }
 

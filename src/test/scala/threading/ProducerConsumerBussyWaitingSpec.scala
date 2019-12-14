@@ -19,7 +19,6 @@ class ProducerConsumerBussyWaitingSpec extends FunSuite {
   def producerConsumer(): Unit = {
     val container = new Container
     val consumer = new Thread(() => {
-      println("\t[consumer] waiting...")
       while(container.isEmpty){
         println("\t[consumer] actively waiting...")
       }
@@ -42,7 +41,7 @@ class ProducerConsumerBussyWaitingSpec extends FunSuite {
 
   test("run"){
     producerConsumer()
-    
+
     // OUTPUT
     // ========================================
     //    [consumer] actively waiting...

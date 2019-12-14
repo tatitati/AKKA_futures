@@ -2,9 +2,9 @@ package threading
 
 import org.scalatest.FunSuite
 
-class WaitNotify1Spec extends FunSuite {
+class AnyrefLockSpec extends FunSuite {
 
-  test("wait + notify: this can be used to introduce data every X items"){
+  test("Is interesting that I take the lock of a different variable to the one I'm modifying....seems that I don't need to lock the variable that is going to be modified"){
     val lock = new AnyRef
     var sharedMsg: String = ""
 
@@ -34,8 +34,7 @@ class WaitNotify1Spec extends FunSuite {
         lock.notify()
       }
     })
-
-
+    
     t1.start(); t2.start()
     t1.join(); t2.join()
   }

@@ -24,7 +24,7 @@ class ProducerConsumerNotifyingSlotSpec extends FunSuite {
         println("\t[consumer] waiting..."); container.wait()
       }
 
-      println("\t[consumer] I have consumed " + container.get)
+      println("\t[consumer] I consumed " + container.get)
     })
 
 
@@ -32,7 +32,7 @@ class ProducerConsumerNotifyingSlotSpec extends FunSuite {
       println("[producer] working...")
 
       container.synchronized {
-        println("[producer] I'm producing 42"); container.set(42)
+        container.set(42); println("[producer] I produced 42")
         container.notify()
       }
     })

@@ -57,5 +57,20 @@ class ProducerConsumerBufferSpec extends FunSuite {
 
   test("run") {
     producerConsumer()
+
+    // OUTPUT
+    // ======
+    //
+    //[producer] buffer is full, waiting....
+    //  [consumer] consumed 149
+    //[producer] producing152
+    //  [consumer] consumed 150
+    //[producer] producing153
+    //  [consumer] consumed 151
+    //[producer] producing154
+    //  [consumer] consumed 152
+    //[producer] producing155
+    //  [consumer] consumed 153
+
   }
 }

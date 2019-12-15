@@ -10,12 +10,12 @@ class MultiProducerConsumerSpec extends FunSuite {
     while(true) {
       buffer.synchronized {
         while(buffer.isEmpty){ // why while and not if!!!!!??!?!?!?!?!
-          println("\t[consumer] buffer empty, waiting...")
+          println(s"\t[consumer-$id] buffer empty, waiting...")
           buffer.wait()
         }
 
         val x = buffer.dequeue()
-        println(s"\t[consumer] consumed $x")
+        println(s"\t[consumer-$id] consumed $x")
         buffer.notify()
       }
     }
@@ -27,11 +27,11 @@ class MultiProducerConsumerSpec extends FunSuite {
     while(true){
       buffer.synchronized{
         while(buffer.size == capacity){ // why while and not if??????
-          println("[producer] buffer is full, waiting..")
+          println(s"[producer-$id] buffer is full, waiting..")
           buffer.wait()
         }
 
-        println(s"[producer] producing $i")
+        println(s"[producer-$id] producing $i")
         buffer.enqueue(i)
 
         buffer.notify()

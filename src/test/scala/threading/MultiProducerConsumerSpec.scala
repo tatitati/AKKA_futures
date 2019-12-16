@@ -9,7 +9,9 @@ class MultiProducerConsumerSpec extends FunSuite {
   class Consumer(id: Int, buffer: mutable.Queue[Int]) extends Thread(() => {
     while(true) {
       buffer.synchronized {
-        while(buffer.isEmpty){ // why while and not if!!!!!??!?!?!?!?!
+        // why while and not if?: because the last notify of this
+        // function might activate another consumer, and this consumer might try to consume from an empty queue
+        while(buffer.isEmpty){
           println(s"\t[consumer-$id] buffer empty, waiting...")
           buffer.wait()
         }
@@ -26,7 +28,9 @@ class MultiProducerConsumerSpec extends FunSuite {
 
     while(true){
       buffer.synchronized{
-        while(buffer.size == capacity){ // why while and not if??????
+        // why while and not if?: because the last notify might activate a
+        // producer and this producer might try to inject a new item when the queue is already full
+        while(buffer.size == capacity){
           println(s"[producer-$id] buffer is full, waiting..")
           buffer.wait()
         }

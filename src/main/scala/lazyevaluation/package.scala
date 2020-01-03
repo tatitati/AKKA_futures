@@ -4,6 +4,11 @@ object Exercises extends App {
   // EXERCISE:
   // implemente a lazily evaluated, singly linked STREAM of elements
 
+  // example: MyStream.from(1)(x => x + 1)   is an stream of natural numbers (infinite)
+  // example: naturals.take(100)  is lazily evaluated stream of the first 100 naturals (finite stream)
+  // naturals.take(100).foreach(println) ===> OK
+  // naturals.foreach(println) =====> will crash, might be infinite
+  // naturals.map(_ * 2) =====> will crash, might be infinite
   abstract class MyStream[+A] {
     def isEmpty: Boolean
     def head: A
@@ -17,15 +22,11 @@ object Exercises extends App {
     def flatMap[B](f: A => MyStream[B]): MyStream[B]
     def filter(predicate: A => Boolean): MyStream[A]
 
-    // example: naturals.take(100)  is lazily evaluated stream of the first 100 naturals (finite stream)
-    // naturals.take(100).foreach(println) ===> OK
-    // naturals.foreach(println) =====> will crash, is infinite
     def take(n: Int):MyStream[A]
     def takeAsList(n: Int):List[A]
   }
 
   object MyStream {
-    // example: MyStream.from(1)(x => x + 1)   is an stream of natural numbers (infinite)
     def from[A](start: A)(generator: A => A): MyStream[A] = ???
   }
 }

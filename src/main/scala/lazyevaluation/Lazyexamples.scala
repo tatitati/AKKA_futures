@@ -29,10 +29,9 @@ object Lazyexamples extends App {
     println("EXAMPLE 2:")
 
     def byNameMethod(fn: => Int): Int = {
-      // NOTE: now is evaluated only 1.
-      //       This technique is named "CALL BY NEED"
-      lazy val lv = fn
-      lv + lv + lv + 1
+      lazy val lv = fn // call by need
+      println("after")
+      lv
     }
 
     def retrieveMagicValue(): Int = {
@@ -42,6 +41,7 @@ object Lazyexamples extends App {
 
     byNameMethod(retrieveMagicValue)
     // >
+    // after
     // waiting....
   }
 
